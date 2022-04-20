@@ -1,0 +1,36 @@
+version: '3'
+services:
+
+  web:
+    build: ./web/
+    ports:
+      - "80:80"
+    restart: always
+
+  app:
+    build: ./app/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    restart: always
+    environment:
+      DB_ENGINE: 'mysql+pymysql'
+      DB_USER: master
+      DB_PASSWORD: password
+      DB_ENDPOINT: db
+      DB_NAME: test
+
+  db:
+    build: ./db/
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: adminpass
+      MYSQL_DATABASE: test
+      MYSQL_USER: master
+      MYSQL_PASSWORD: password
+
+volumes:
+  db_data: {}

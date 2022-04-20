@@ -1,0 +1,9 @@
+FROM mysql:5.7
+
+ADD CreateDB.sql /docker-entrypoint-initdb.d/CreateDB.sql
+
+
+# FROM keinos/sqlite3:latest
+# WORKDIR /workspace
+# RUN touch todo.db
+# RUN sqlite3 todo.db 'CREATE TABLE todo ( id INTEGER NOT NULL, content VARCHAR(200) NOT NULL, date_created DATETIME, PRIMARY KEY (id));'
